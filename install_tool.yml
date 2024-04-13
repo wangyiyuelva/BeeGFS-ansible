@@ -1,0 +1,14 @@
+- name: Install Tools
+  hosts: clusterall
+  tasks:
+    - name: Install yum packages
+      become: true
+      ansible.builtin.yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - python3-pip
+        - mesa-libGL
+    - name: Install virtualenv
+      ansible.builtin.pip:
+        name: virtualenv

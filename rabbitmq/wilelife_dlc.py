@@ -14,7 +14,8 @@ from PytorchWildlife import utils as pw_utils
 def run_wildlife(input_video):
     DEVICE = "cpu" # Use "cuda" if you are running on GPU. Use "cpu" if you are running on CPU
     SOURCE_VIDEO_PATH = input_video
-    TARGET_VIDEO_PATH = input_video[:-4] + "wild.mp4"
+    filename = input_video.split("/")[-1]
+    TARGET_VIDEO_PATH = "/beegfs/data/output/" + filename[:-4] + "wild.mp4"
     detection_model = pw_detection.MegaDetectorV5(device=DEVICE, pretrained=True)
     classification_model = pw_classification.AI4GAmazonRainforest(device=DEVICE, pretrained=True)
     

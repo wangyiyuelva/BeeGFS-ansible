@@ -15,6 +15,7 @@ def receive():
         wild_result = wilelife_dlc.run_wildlife(body)
         wilelife_dlc.run_deeplabcut(wild_result)
 
+        print(f" [x] Complete {body}")
         ch.basic_ack(delivery_tag = method.delivery_tag)
         
     channel.basic_consume(queue='input_file_que',

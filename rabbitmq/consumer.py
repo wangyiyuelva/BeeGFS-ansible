@@ -6,6 +6,7 @@ def receive():
     channel = connection.channel()
 
     channel.queue_declare(queue='input_file_que')
+    
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")

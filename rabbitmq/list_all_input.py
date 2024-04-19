@@ -14,8 +14,9 @@ def list_mp4_files(directory):
   
   return mp4_files
 
-# Example usage
-directory = "/beegfs/data/input/"  # Replace with your actual directory path
+
+# main
+directory = "/beegfs/data/input/"
 mp4_data = list_mp4_files(directory)
 
 if mp4_data:

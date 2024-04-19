@@ -1,0 +1,22 @@
+- name: Install rabbitMQ
+  hosts: clusterhead
+  tasks:
+    - name: Configure rabbitMQ
+      ansible.builtin.shell: |
+        sudo dnf install socat logrotate -y
+        sudo cp /beegfs/pipeline/rabbitmq/rabbitmq.repo /etc/yum.repos.d/
+        sudo dnf install erlang rabbitmq-server -y
+        sudo systemctl enable rabbitmq-server
+        sudo systemctl start rabbitmq-server
+    - name: Modify rabbitmq.conf
+      ansible.builtin.shell: |
+        sudo cp /beegfs/pipeline/rabbitmq/rabbitmq.conf /etc/rabbitmq/rabbitmq.conf
+        sudo systemctl stop rabbitmq-server
+        export CONFIG_FILE=/etc/rabbitmq/rabbitmq.conf
+        sudo systemctl start rabbitmq-server
+        sudo rabbitmq-plugins enable rabbitmq_management
+    - name: Add user
+      ansible.builtin.shell: |
+        sudo rabbitmqctl add_user admin abc123
+        sudo rabbitmqctl set_user_tags admin administrator
+        sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'

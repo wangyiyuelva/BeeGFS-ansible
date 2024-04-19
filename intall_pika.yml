@@ -1,0 +1,7 @@
+- name: Install pika
+  hosts: clusterall
+  tasks:
+    - name: Install pika
+      ansible.builtin.shell: |
+        source /beegfs/virtualenv/venv/bin/activate
+        pip install pika

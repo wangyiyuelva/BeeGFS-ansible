@@ -8,15 +8,15 @@
       become: true
     - name: mount the filesystem
       ansible.posix.mount:
-        name: /beegfs_data/target
+        name: /beegfs_data
         src: /dev/nvme1n1
         fstype: ext4
         state: mounted 
       become: true
-    - name: change the owner back to ec2-user after mounting
-      become: true
-      ansible.builtin.file:
-        path: /beegfs_data/target
-        state: directory
-        mode: 0755
-        owner: ec2-user
+    # - name: change the owner back to ec2-user after mounting
+    #   become: true
+    #   ansible.builtin.file:
+    #     path: /beegfs_data/target
+    #     state: directory
+    #     mode: 0755
+    #     owner: ec2-user

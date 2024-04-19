@@ -1,45 +1,44 @@
 localhost:
   hosts:
     machine01:
-      ansible_host: 10.0.10.29
+      ansible_host: 10.0.0.155
 clusterall:
   hosts:
     node01:
-      ansible_host: 10.0.4.102
+      ansible_host: 10.0.0.108
     node02:
-      ansible_host: 10.0.14.21
+      ansible_host: 10.0.5.211
     node03:
-      ansible_host: 10.0.13.55
+      ansible_host: 10.0.2.25
     node04:
-      ansible_host: 10.0.3.232
+      ansible_host: 10.0.6.86
     node05:
-      ansible_host: 10.0.0.88
+      ansible_host: 10.0.0.75
 clusterworker:
   hosts:
     worker01:
-      ansible_host: 10.0.14.21
+      ansible_host: 10.0.5.211
     worker02:
-      ansible_host: 10.0.13.55
+      ansible_host: 10.0.2.25
     worker03:
-      ansible_host: 10.0.3.232
+      ansible_host: 10.0.6.86
     worker04:
-      ansible_host: 10.0.0.88
+      ansible_host: 10.0.0.75
 clusterhead:
   hosts:
     head01:
-      ansible_host: 10.0.4.102
+      ansible_host: 10.0.0.108
 allmachines:
   hosts:
     instance01:
-      ansible_host: 10.0.10.29
+      ansible_host: 10.0.0.155
     instance02:
-      ansible_host: 10.0.4.102
+      ansible_host: 10.0.0.108
     instance03:
-      ansible_host: 10.0.14.21
+      ansible_host: 10.0.5.211
     instance04:
-      ansible_host: 10.0.13.55
+      ansible_host: 10.0.2.25
     instance05:
-      ansible_host: 10.0.3.232
+      ansible_host: 10.0.6.86
     instance06:
-      ansible_host: 10.0.0.88
-
+      ansible_host: 10.0.0.75

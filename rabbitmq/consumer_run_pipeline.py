@@ -1,5 +1,6 @@
 import pika, sys, os
 import wilelife_dlc
+import shutil
 
 def receive():
     credentials = pika.PlainCredentials('admin', 'abc123')
@@ -11,13 +12,20 @@ def receive():
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")
+        ch.basic_ack(delivery_tag = method.delivery_tag)
 
         input = body.decode()
         wild_result = wilelife_dlc.run_wildlife(input)
         wilelife_dlc.run_deeplabcut(wild_result)
 
+        source_file = wild_result[:-4] + "DLC_snapshot-700000_labeled.mp4"
+        try:
+            shutil.move(wild_result, target_path)
+            print(f"Successfully moved {source_path} to {target_path}")
+        except Exception as e:
+            print(f"Error moving file: {e}")
+        
         print(f" [x] Complete {input}")
-        ch.basic_ack(delivery_tag = method.delivery_tag)
         
     channel.basic_consume(queue='input_file_que',
                           auto_ack=False,

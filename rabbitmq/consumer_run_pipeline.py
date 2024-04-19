@@ -4,7 +4,7 @@ import shutil
 
 def receive():
     credentials = pika.PlainCredentials('admin', 'abc123')
-    connection = pika.BlockingConnection(pika.ConnectionParameters('10.0.0.108', '5673', '/', credentials=credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters('10.0.0.108', '5673', '/', credentials=credentials, heartbeat=1200))
     channel = connection.channel()
 
     channel.queue_declare(queue='input_file_que')
@@ -14,6 +14,7 @@ def receive():
         print(f" [x] Received filename {body}")
         
 
+        ch.basic_ack(delivery_tag = method.delivery_tag)
         input = body.decode()
         print(f" [x] Processing {input}")
         
@@ -30,7 +31,6 @@ def receive():
         #     print(f"Error moving file: {e}")
         
         print(f" [x] Complete {input}")
-        ch.basic_ack(delivery_tag = method.delivery_tag)
         
     channel.basic_consume(queue='input_file_que',
                           auto_ack=False,

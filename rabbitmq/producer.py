@@ -26,7 +26,7 @@ else:
   print("No mp4 files found in the specified directory.")
 
 # rabbitMQ producer
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', '5673'))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', '5673', heartbeat=1200))
 channel = connection.channel()
 
 channel.queue_declare(queue='input_file_que')

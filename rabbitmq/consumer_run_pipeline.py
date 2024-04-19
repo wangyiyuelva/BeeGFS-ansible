@@ -12,10 +12,11 @@ def receive():
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")
 
-        wild_result = wilelife_dlc.run_wildlife(body)
+        input = body.decode()
+        wild_result = wilelife_dlc.run_wildlife(input)
         wilelife_dlc.run_deeplabcut(wild_result)
 
-        print(f" [x] Complete {body}")
+        print(f" [x] Complete {input}")
         ch.basic_ack(delivery_tag = method.delivery_tag)
         
     channel.basic_consume(queue='input_file_que',

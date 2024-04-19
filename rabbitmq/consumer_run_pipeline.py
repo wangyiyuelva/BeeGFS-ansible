@@ -18,8 +18,8 @@ def receive():
         input = body.decode()
         print(f" [x] Processing {input}")
         
-        # wild_result = wilelife_dlc.run_wildlife(input)
-        # wilelife_dlc.run_deeplabcut(wild_result)
+        wild_result = wilelife_dlc.run_wildlife(input)
+        wilelife_dlc.run_deeplabcut(wild_result)
 
         # filename = wild_result.split("/")[-1]
         # source_file = wild_result[:-4] + "DLC_snapshot-700000_labeled.mp4"

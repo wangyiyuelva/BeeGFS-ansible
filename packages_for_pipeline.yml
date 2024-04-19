@@ -7,7 +7,6 @@
         state: directory
     - name: Configure venv
       ansible.builtin.shell: |
-        mkdir /beegfs/virtualenv
         cd /beegfs/virtualenv
         virtualenv venv
         source /beegfs/virtualenv/venv/bin/activate

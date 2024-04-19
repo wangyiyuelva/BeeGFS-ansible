@@ -1,0 +1,15 @@
+- name: Install packages of pipeline
+  hosts: clusterhead
+  tasks:
+    - name: Create folder
+      ansible.builtin.file:
+        path: /beegfs/virtualenv
+        state: directory
+    - name: Configure venv
+      ansible.builtin.shell: |
+        mkdir /beegfs/virtualenv
+        cd /beegfs/virtualenv
+        virtualenv venv
+        source /beegfs/virtualenv/venv/bin/activate
+        pip install deeplabcut[tf,modelzoo] --no-cache-dir
+        pip install PytorchWildlife --no-cache-dir

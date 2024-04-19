@@ -35,7 +35,7 @@ def run_wildlife(input_video):
         annotated_frame = box_annotator.annotate(scene=frame, detections=results_det["detections"], labels=labels)
         return annotated_frame
     
-    pw_utils.process_video(source_path=SOURCE_VIDEO_PATH, target_path=TARGET_VIDEO_PATH, callback=callback, target_fps=4)
+    pw_utils.process_video(source_path=SOURCE_VIDEO_PATH, target_path=TARGET_VIDEO_PATH, callback=callback, target_fps=5)
     return TARGET_VIDEO_PATH
 
 def run_deeplabcut(input_video):

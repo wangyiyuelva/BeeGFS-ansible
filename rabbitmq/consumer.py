@@ -2,11 +2,11 @@ import pika, sys, os
 
 def receive():
     credentials = pika.PlainCredentials('admin', 'abc123')
-    connection = pika.BlockingConnection(pika.ConnectionParameters('10.0.4.102', '5673', '/', credentials=credentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters('10.0.0.108', '5673', '/', credentials=credentials))
     channel = connection.channel()
 
     channel.queue_declare(queue='input_file_que')
-    
+
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")

@@ -18,7 +18,7 @@ def list_mp4_files(directory):
 directory = "/beegfs/data/input/"  # Replace with your actual directory path
 mp4_data = list_mp4_files(directory)
 
-if not mp4_data.empty:
+if mp4_data:
   print(mp4_data)
 else:
   print("No mp4 files found in the specified directory.")

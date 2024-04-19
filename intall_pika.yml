@@ -1,5 +1,5 @@
 - name: Install pika
-  hosts: clusterall
+  hosts: clusterhead
   tasks:
     - name: Install pika
       ansible.builtin.shell: |

@@ -12,7 +12,7 @@ def receive():
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")
-        ch.basic_ack(delivery_tag = method.delivery_tag)
+        
 
         input = body.decode()
         print(f" [x] Processing {input}")
@@ -29,6 +29,7 @@ def receive():
         #     print(f"Error moving file: {e}")
         
         print(f" [x] Complete {input}")
+        ch.basic_ack(delivery_tag = method.delivery_tag)
         
     channel.basic_consume(queue='input_file_que',
                           auto_ack=False,

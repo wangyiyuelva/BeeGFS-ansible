@@ -35,6 +35,6 @@ for target_mp4 in mp4_data:
   channel.basic_publish(exchange='',
                         routing_key='input_file_que',
                         body=target_mp4)
-  print(" [x] Sent {target_mp4}")
+  print(f" [x] Sent {target_mp4}")
 
 channel.close()

@@ -16,6 +16,8 @@ def receive():
 
         input = body.decode()
         print(f" [x] Processing {input}")
+        ch.basic_ack(delivery_tag = method.delivery_tag)
+        
         wild_result = wilelife_dlc.run_wildlife(input)
         wilelife_dlc.run_deeplabcut(wild_result)
 
@@ -29,7 +31,6 @@ def receive():
         #     print(f"Error moving file: {e}")
         
         print(f" [x] Complete {input}")
-        ch.basic_ack(delivery_tag = method.delivery_tag)
         
     channel.basic_consume(queue='input_file_que',
                           auto_ack=False,

@@ -1,6 +1,5 @@
 import pika
 
-def send(input):
 input = "../data_input/test.mp4"
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', '5673'))
 channel = connection.channel()

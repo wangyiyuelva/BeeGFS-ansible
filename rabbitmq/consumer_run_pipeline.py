@@ -2,6 +2,7 @@ import pika, sys, os
 import wilelife_dlc
 import shutil
 import socket
+from datetime import datetime
 
 def receive():
     credentials = pika.PlainCredentials('admin', 'abc123')
@@ -21,9 +22,10 @@ def receive():
         input = body.decode()
 
         # Add logging info
-        f = open(fname, "a")
-        f.write(' %s start running...', input)
-        f.close()
+        with open(fname, 'a+') as f:
+            # get current date and time
+            current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+            f.write(repr(current_datetime) + ": " + repr(input) + ' start running...')
         print(f" [x] Processing {input}")
 
         ch.basic_ack(delivery_tag = method.delivery_tag)
@@ -40,9 +42,9 @@ def receive():
         # except Exception as e:
         #     print(f"Error moving file: {e}")
 
-        f = open(fname, "a")
-        f.write(' %s is Done.', input)
-        f.close()
+        with open(fname, 'a') as f:
+            current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+            f.write(repr(current_datetime) + ": " + repr(input) + ' is Done.')
         print(f" [x] Complete {input}")
         
     channel.basic_consume(queue='input_file_que',

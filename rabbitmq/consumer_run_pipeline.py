@@ -11,14 +11,6 @@ def receive():
 
     channel.queue_declare(queue='input_file_que')
 
-    hostname=socket.gethostname()
-    IPAddr=socket.gethostbyname(hostname)
-    print("Your Computer IP Address is:"+IPAddr)
-
-    FORMAT = '%(asctime)s:%(message)s'
-    logging.basicConfig(level=logging.DEBUG, filename='./Log.log', filemode='a', format=FORMAT)
-    logging.info(' %s start running...', IPAddr)
-
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")
@@ -52,6 +44,16 @@ def receive():
     channel.start_consuming()
 
 if __name__ == '__main__':
+
+    hostname=socket.gethostname()
+    IPAddr=socket.gethostbyname(hostname)
+    print("Your Computer IP Address is:"+IPAddr)
+
+    fname = f'./logging/Log-{IPAddr}.log'
+    FORMAT = '%(asctime)s:%(message)s'
+    logging.basicConfig(level=logging.DEBUG, filename=fname, filemode='a', format=FORMAT)
+    logging.info(' %s start running...', IPAddr)
+
     try:
         receive()
     except KeyboardInterrupt:

@@ -1,7 +1,6 @@
 import pika, sys, os
 import wilelife_dlc
 import shutil
-import logging
 import socket
 
 def receive():
@@ -11,13 +10,20 @@ def receive():
 
     channel.queue_declare(queue='input_file_que')
 
+    hostname=socket.gethostname()
+    IPAddr=socket.gethostbyname(hostname)
+    print("Your Computer IP Address is:"+IPAddr)
+    fname = f'../LogFiles/Log-{IPAddr}.log'
+
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")
         input = body.decode()
 
         # Add logging info
-        logging.info(' %s start running...', input)
+        f = open(fname, "a")
+        f.write(' %s start running...', input)
+        f.close()
         print(f" [x] Processing {input}")
 
         ch.basic_ack(delivery_tag = method.delivery_tag)
@@ -34,7 +40,9 @@ def receive():
         # except Exception as e:
         #     print(f"Error moving file: {e}")
 
-        logging.info(' %s is Done.', input)
+        f = open(fname, "a")
+        f.write(' %s is Done.', input)
+        f.close()
         print(f" [x] Complete {input}")
         
     channel.basic_consume(queue='input_file_que',
@@ -44,15 +52,6 @@ def receive():
     channel.start_consuming()
 
 if __name__ == '__main__':
-
-    hostname=socket.gethostname()
-    IPAddr=socket.gethostbyname(hostname)
-    print("Your Computer IP Address is:"+IPAddr)
-
-    fname = f'../Log-{IPAddr}.log'
-    FORMAT = '%(asctime)s:%(message)s'
-    logging.basicConfig(level=logging.DEBUG, filename=fname, filemode='a', format=FORMAT)
-    logging.info(' %s start running...', IPAddr)
 
     try:
         receive()

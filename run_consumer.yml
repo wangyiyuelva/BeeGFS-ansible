@@ -3,4 +3,4 @@
   tasks:
     - name: Run consumer
       ansible.builtin.shell: |
-        nohup ./runConsumer.sh &
+        nohup /beegfs/pipeline/runConsumer.sh &

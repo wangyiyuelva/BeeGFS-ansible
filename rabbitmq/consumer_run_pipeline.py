@@ -1,6 +1,8 @@
 import pika, sys, os
 import wilelife_dlc
 import shutil
+import logging
+import socket
 
 def receive():
     credentials = pika.PlainCredentials('admin', 'abc123')
@@ -9,14 +11,22 @@ def receive():
 
     channel.queue_declare(queue='input_file_que')
 
+    hostname=socket.gethostname()
+    IPAddr=socket.gethostbyname(hostname)
+    print("Your Computer IP Address is:"+IPAddr)
+
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")
-        
+        input = body.decode()
+
+        # Add logging info
+        FORMAT = '%(asctime)s:%(message)s'
+        logging.basicConfig(level=logging.DEBUG, filename=f"../logs/{IPAddr}.log", filemode='a', format=FORMAT)
+        logging.info(' %s start running...', input)
+        print(f" [x] Processing {input}")
 
         ch.basic_ack(delivery_tag = method.delivery_tag)
-        input = body.decode()
-        print(f" [x] Processing {input}")
         
         wild_result = wilelife_dlc.run_wildlife(input)
         wilelife_dlc.run_deeplabcut(wild_result)
@@ -29,7 +39,8 @@ def receive():
         #     print(f"Successfully moved {source_file} to {dst_file}")
         # except Exception as e:
         #     print(f"Error moving file: {e}")
-        
+
+        logging.info(' %s is Done.', input)
         print(f" [x] Complete {input}")
         
     channel.basic_consume(queue='input_file_que',

@@ -22,7 +22,7 @@ def receive():
 
         # Add logging info
         FORMAT = '%(asctime)s:%(message)s'
-        logging.basicConfig(level=logging.DEBUG, filename=f"../logs/{IPAddr}.log", filemode='a', format=FORMAT)
+        logging.basicConfig(level=logging.DEBUG, filename=(f"../logging/{IPAddr}.log"), filemode='a', format=FORMAT)
         logging.info(' %s start running...', input)
         print(f" [x] Processing {input}")
 

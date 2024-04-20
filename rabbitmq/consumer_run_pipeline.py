@@ -14,7 +14,7 @@ def receive():
     hostname=socket.gethostname()
     IPAddr=socket.gethostbyname(hostname)
     print("Your Computer IP Address is:"+IPAddr)
-    fname = f'../LogFiles/Log-{IPAddr}.log'
+    fname = f'/beegfs/pipeline/LogFiles/Log-{IPAddr}.log'
 
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
@@ -25,7 +25,7 @@ def receive():
         with open(fname, 'a+') as f:
             # get current date and time
             current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-            f.write(repr(current_datetime) + ": " + repr(input) + ' start running...')
+            f.write(repr(current_datetime) + ": " + repr(input) + ' start running...\n')
         print(f" [x] Processing {input}")
 
         ch.basic_ack(delivery_tag = method.delivery_tag)
@@ -44,7 +44,7 @@ def receive():
 
         with open(fname, 'a') as f:
             current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-            f.write(repr(current_datetime) + ": " + repr(input) + ' is Done.')
+            f.write(repr(current_datetime) + ": " + repr(input) + ' is Done.\n')
         print(f" [x] Complete {input}")
         
     channel.basic_consume(queue='input_file_que',

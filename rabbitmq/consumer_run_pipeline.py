@@ -33,14 +33,14 @@ def receive():
         wild_result = wilelife_dlc.run_wildlife(input)
         wilelife_dlc.run_deeplabcut(wild_result)
 
-        # filename = wild_result.split("/")[-1]
-        # source_file = wild_result[:-4] + "DLC_snapshot-700000_labeled.mp4"
-        # dst_file = "/beegfs/data/output/" + filename
-        # try:
-        #     shutil.move(source_file, dst_file)
-        #     print(f"Successfully moved {source_file} to {dst_file}")
-        # except Exception as e:
-        #     print(f"Error moving file: {e}")
+        source_file = input
+        filename = source_file.split("/")[-1]
+        dst_file = "/beegfs/data/input_done/" + filename
+        try:
+            shutil.move(source_file, dst_file)
+            print(f"Successfully moved {source_file} to {dst_file}")
+        except Exception as e:
+            print(f"Error moving file: {e}")
 
         with open(fname, 'a') as f:
             current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")

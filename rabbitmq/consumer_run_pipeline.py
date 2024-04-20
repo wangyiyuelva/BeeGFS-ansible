@@ -49,7 +49,7 @@ if __name__ == '__main__':
     IPAddr=socket.gethostbyname(hostname)
     print("Your Computer IP Address is:"+IPAddr)
 
-    fname = f'./logging/Log-{IPAddr}.log'
+    fname = f'../Log-{IPAddr}.log'
     FORMAT = '%(asctime)s:%(message)s'
     logging.basicConfig(level=logging.DEBUG, filename=fname, filemode='a', format=FORMAT)
     logging.info(' %s start running...', IPAddr)

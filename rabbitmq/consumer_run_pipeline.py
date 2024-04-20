@@ -15,14 +15,15 @@ def receive():
     IPAddr=socket.gethostbyname(hostname)
     print("Your Computer IP Address is:"+IPAddr)
 
+    FORMAT = '%(asctime)s:%(message)s'
+    logging.basicConfig(level=logging.DEBUG, filename='./Log.log', filemode='a', format=FORMAT)
+
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")
         input = body.decode()
 
         # Add logging info
-        FORMAT = '%(asctime)s:%(message)s'
-        logging.basicConfig(level=logging.DEBUG, filename=(f"../logging/{IPAddr}.log"), filemode='a', format=FORMAT)
         logging.info(' %s start running...', input)
         print(f" [x] Processing {input}")
 

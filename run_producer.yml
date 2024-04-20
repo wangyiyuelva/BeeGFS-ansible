@@ -1,0 +1,7 @@
+- name: Run producer
+  hosts: clusterhead
+  tasks:
+    - name: Run producer
+      ansible.builtin.shell: |
+        source /beegfs/virtualenv/venv/bin/activate
+        nohup python /beegfs/pipeline/rabbitmq/producer.py &

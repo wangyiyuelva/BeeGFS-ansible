@@ -1,0 +1,7 @@
+- name: Run consumer
+  hosts: clusterworker
+  tasks:
+    - name: Run consumer
+      ansible.builtin.shell: |
+        source /beegfs/virtualenv/venv/bin/activate
+        nohup python /beegfs/pipeline/rabbitmq/consumer_run_pipeline.py &

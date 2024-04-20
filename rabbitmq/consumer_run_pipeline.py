@@ -17,6 +17,7 @@ def receive():
 
     FORMAT = '%(asctime)s:%(message)s'
     logging.basicConfig(level=logging.DEBUG, filename='./Log.log', filemode='a', format=FORMAT)
+    logging.info(' %s start running...', IPAddr)
 
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):

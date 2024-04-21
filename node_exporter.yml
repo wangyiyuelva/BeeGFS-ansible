@@ -1,0 +1,7 @@
+- name: Node exporter
+  hosts: clusterall
+  tasks:
+    - name: Run node exporter
+      ansible.builtin.shell: |
+        cd /beegfs/prometheus/node_exporter-1.7.0
+        nohup ./node_exporter &

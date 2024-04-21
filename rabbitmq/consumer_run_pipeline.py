@@ -28,8 +28,6 @@ def receive():
             f.write(repr(current_datetime) + ": " + repr(input) + ' start running...\n')
         print(f" [x] Processing {input}")
 
-        ch.basic_ack(delivery_tag = method.delivery_tag)
-        
         wild_result = wilelife_dlc.run_wildlife(input)
         wilelife_dlc.run_deeplabcut(wild_result)
 
@@ -45,8 +43,11 @@ def receive():
         with open(fname, 'a') as f:
             current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
             f.write(repr(current_datetime) + ": " + repr(input) + ' is Done.\n')
+
+        ch.basic_ack(delivery_tag = method.delivery_tag)
         print(f" [x] Complete {input}")
-        
+
+    channel.basic_qos(prefetch_count=1)    
     channel.basic_consume(queue='input_file_que',
                           auto_ack=False,
                           on_message_callback=callback)

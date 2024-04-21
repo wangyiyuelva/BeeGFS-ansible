@@ -1,17 +1,30 @@
 import pika
 import os
 
+
+def get_file_size(file_path):
+  """Gets the size of a file in bytes."""
+  try:
+    return os.path.getsize(file_path)
+  except (FileNotFoundError, PermissionError) as e:
+    # Handle potential errors like file not found or permission issues
+    print(f"Error accessing file '{file_path}': {e}")
+    return 0
+
 def list_mp4_files(directory):
   """
   This function lists all mp4 files within a directory.
   """
 
   mp4_files = []
+  target_size_bytes = 1 * 1024 * 1024
 
   for filename in os.listdir(directory):
     if filename.endswith(".mp4"):
       filepath = os.path.join(directory, filename)
-      mp4_files.append(filepath)
+      file_size = get_file_size(filepath)
+      if file_size <= target_size_bytes:
+        mp4_files.append(filepath)
   
   return mp4_files
 
@@ -38,3 +51,4 @@ for target_mp4 in mp4_data:
   print(f" [x] Sent {target_mp4}")
 
 channel.close()
+

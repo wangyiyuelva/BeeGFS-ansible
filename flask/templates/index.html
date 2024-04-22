@@ -1,3 +1,13 @@
+<html>
+<head>
+<style>
+.box {
+  display: flex;
+  justify-content: space-around;
+}
+</style>
+</head>
+<body>
 <p>
   {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -19,9 +29,9 @@
     <input type="submit" value="Upload">
   </p>
 </form>
+<div class="box">
 <div>
   <h1>Your uploaded file:</h1>
-</div>
 {% if filename %}
 <div style="margin: 10px auto;">
   <video autoplay="autoplay" controls="controls" preload="preload">
@@ -30,10 +40,10 @@
   </video>
 </div>
 {% endif %}
+</div>
 
 <div>
   <h1>Your video after data processing:</h1>
-</div>
 
 {% if output_file %}
 <div style="margin: 10px auto;">
@@ -44,3 +54,7 @@
   </video>
 </div>
 {% endif %}
+</div>
+</div>
+</body>
+</html>

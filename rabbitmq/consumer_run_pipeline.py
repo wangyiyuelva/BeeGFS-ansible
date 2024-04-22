@@ -14,7 +14,7 @@ def receive():
     hostname=socket.gethostname()
     IPAddr=socket.gethostbyname(hostname)
     print("Your Computer IP Address is:"+IPAddr)
-    fname = f'/beegfs/pipeline/LogFiles/Log-{IPAddr}.log'
+    fname = f"/beegfs/pipeline/flask/static/{IPAddr.replace('.', '-')}.log"
 
     # Define the callback function and register it with basic_consume()
     def callback(ch, method, properties, body):
@@ -25,10 +25,15 @@ def receive():
         with open(fname, 'a+') as f:
             # get current date and time
             current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-            f.write(repr(current_datetime) + ": " + repr(input) + ' start running...\n')
+            f.write(repr(current_datetime) + ": " + repr(input) + ' start running wildlife model...\n')
         print(f" [x] Processing {input}")
 
         wild_result = wilelife_dlc.run_wildlife(input)
+        with open(fname, 'a+') as f:
+            # get current date and time
+            current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+            f.write(repr(current_datetime) + ": " + repr(input) + ' completed wildlife model, starting deeplabcut...\n')
+
         wilelife_dlc.run_deeplabcut(wild_result)
 
         source_file = input

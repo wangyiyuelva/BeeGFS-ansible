@@ -34,3 +34,15 @@ def display_video(filename):
     return send_from_directory(
         app.config['UPLOAD_FOLDER'], filename, as_attachment=True
     )
+
+@app.route('/Log/<path:log_number>')
+def display_log(log_number):
+    try:
+        filename = f'static/{log_number}.log'  # Construct filename based on log_number
+        log_content = ''
+        with open(filename, 'r') as f:
+            log_content = f.read()
+        return render_template('log.html', log_content=log_content)
+    except FileNotFoundError:
+        return "Logfile not found!", 404
+

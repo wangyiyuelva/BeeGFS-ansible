@@ -6,7 +6,7 @@ UPLOAD_FOLDER = 'static/'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+app.secret_key = b'ae40ba2c00ea0a02a05a304c76d04a40dd001125e0718a9fa46b4f2d5c7ce777'
 
 @app.route('/')
 def upload_form():

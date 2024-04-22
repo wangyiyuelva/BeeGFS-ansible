@@ -14,10 +14,10 @@
 <body>
     <h1>Monitor data processing through logs.</h1>
     <div class="log-container">
-        {% filename, log_content in logs.items() %}
+        {% for key, value in logs.items() %}
         <div>
-            <h2>{{ filename }}</h2>
-            <pre>{{ log_content }}</pre>
+            <h2>{{ key }}</h2>
+            <pre>{{ value }}</pre>
         </div>
         {% endfor %}
     </div>

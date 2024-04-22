@@ -40,8 +40,9 @@ def display_video(filename):
 
 @app.route("/output/<path:output_file>")
 def display_output(output_file):
+    filename = f'{output_file}wildDLC_snapshot-700000_labeled.mp4'
     return send_from_directory(
-        app.config['OUTPUT_FOLDER'], output_file, as_attachment=True
+        app.config['OUTPUT_FOLDER'], filename, as_attachment=True
     )
 
 def get_log_filenames():

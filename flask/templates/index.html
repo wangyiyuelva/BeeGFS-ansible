@@ -35,6 +35,7 @@
     <div>
       <h1>Your uploaded file:</h1>
       {% if filename %}
+      <h3>Video uploaded: {{ filename }}</h3>
       <div style="margin: 10px auto;">
         <video autoplay="autoplay" controls="controls" preload="preload">
           <source src="{{ url_for('display_video', filename=filename) }}" type="video/mp4">
@@ -60,6 +61,7 @@
       <h4>You can access the page: /Log to monitor progress.</h4>
       <h4>If the progress is complete but the video still cannot be played, please download it via: /output/filename
       </h4>
+      <h4>For example, your uploaded video is abc.mp4, then download it via: /output/abc </h4>
     </div>
   </div>
 </body>

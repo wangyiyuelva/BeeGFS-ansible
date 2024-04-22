@@ -34,14 +34,14 @@ def upload_video():
 @app.route("/download/<path:filename>")
 def display_video(filename):
     return send_from_directory(
-        app.config['OUTPUT_FOLDER'], filename, as_attachment=True
+        app.config['UPLOAD_FOLDER'], filename, as_attachment=True
     )
 
 @app.route("/output/<path:filename>")
-def display_video(filename):
+def display_output(filename):
     output_name = secure_filename(f"{filename}DLC_snapshot-700000_labeled.mp4")
-    output_path =  os.path.join(app.config['OUTPUT_FOLDER'], output_name)
-    return render_template('output.html', filename=output_path)
+    output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_name)
+    return render_template('output.html', output_path=output_path)
 
 @app.route('/Log/<path:log_number>')
 def display_log(log_number):

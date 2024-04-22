@@ -4,11 +4,13 @@
 <head>
   <title>Output Video</title>
 </head>
-
-{% if filename %}
+<div>
+<h1> Video after data processing. </h1>
+</div>
+{% if output_path %}
 <div style="margin: 10px auto;">
   <video autoplay="autoplay" controls="controls" preload="preload">
-    <source src="{{ output_path }}" type="video/mp4">
+    <source src="{{ url_for('display_output', output_path=output_path)  }}" type='video/mp4; codecs="avc1.4d002a, mp4a.40.2"'>
     </source>
   </video>
 </div>

@@ -19,11 +19,27 @@
     <input type="submit" value="Upload">
   </p>
 </form>
-
+<div>
+  <h1>Your uploaded file:</h1>
+</div>
 {% if filename %}
 <div style="margin: 10px auto;">
   <video autoplay="autoplay" controls="controls" preload="preload">
     <source src="{{ url_for('display_video', filename=filename) }}" type="video/mp4">
+    </source>
+  </video>
+</div>
+{% endif %}
+
+<div>
+  <h1>Your video after data processing:</h1>
+</div>
+
+{% if output_file %}
+<div style="margin: 10px auto;">
+  <video autoplay="autoplay" controls="controls" preload="preload">
+    <source src="{{ url_for('display_output', output_file=output_file) }}"
+      type='video/mp4; codecs="avc1.4d002a, mp4a.40.2"'>
     </source>
   </video>
 </div>

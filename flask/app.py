@@ -29,7 +29,7 @@ def upload_video():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # print('upload_video filename: ' + filename)
         flash('Video successfully uploaded and displayed below')
-        return render_template('index.html', filename=filename)
+        return render_template('index.html', filename=filename, output_file=filename)
 
 @app.route("/download/<path:filename>")
 def display_video(filename):
@@ -37,12 +37,11 @@ def display_video(filename):
         app.config['UPLOAD_FOLDER'], filename, as_attachment=True
     )
 
-@app.route("/output/<path:filename>")
-def display_output(filename):
-    output_name = secure_filename(f"{filename}DLC_snapshot-700000_labeled.mp4")
-    output_path = os.path.join(app.config['OUTPUT_FOLDER'], output_name)
-    return render_template('output.html', output_path=output_path)
-
+@app.route("/output/<path:output_file>")
+def display_output(output_file):
+    return send_from_directory(
+        app.config['OUTPUT_FOLDER'], output_file, as_attachment=True
+    )
 @app.route('/Log/<path:log_number>')
 def display_log(log_number):
     try:

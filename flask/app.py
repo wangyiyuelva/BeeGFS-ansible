@@ -2,10 +2,12 @@ import os
 from flask import Flask, flash, request, redirect, send_from_directory, render_template
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'static/'
+UPLOAD_FOLDER = '/beegfs/data/input/'
+OUTPUT_FOLDER = '/beegfs/data/output/'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 app.secret_key = b'ae40ba2c00ea0a02a05a304c76d04a40dd001125e0718a9fa46b4f2d5c7ce777'
 
 @app.route('/')
@@ -29,11 +31,17 @@ def upload_video():
         flash('Video successfully uploaded and displayed below')
         return render_template('index.html', filename=filename)
 
-@app.route("/display/<path:filename>")
+@app.route("/download/<path:filename>")
 def display_video(filename):
     return send_from_directory(
-        app.config['UPLOAD_FOLDER'], filename, as_attachment=True
+        app.config['OUTPUT_FOLDER'], filename, as_attachment=True
     )
+
+@app.route("/output/<path:filename>")
+def display_video(filename):
+    output_name = secure_filename(f"{filename}DLC_snapshot-700000_labeled.mp4")
+    output_path =  os.path.join(app.config['OUTPUT_FOLDER'], output_name)
+    return render_template('output.html', filename=output_path)
 
 @app.route('/Log/<path:log_number>')
 def display_log(log_number):

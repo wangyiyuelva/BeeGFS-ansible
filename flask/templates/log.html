@@ -2,13 +2,25 @@
 <html>
 
 <head>
-    <title>Monitor</title>
+    <title>Log Viewer</title>
+    <style>
+        .log-container {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
 </head>
 
 <body>
     <h1>Monitor data processing through logs.</h1>
-    <h2>Log Content</h2>
-    <pre>{{ log_content }}</pre>
+    <div class="log-container">
+        {% filename, log_content in logs.items() %}
+        <div>
+            <h2>{{ filename }}</h2>
+            <pre>{{ log_content }}</pre>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 
 </html>

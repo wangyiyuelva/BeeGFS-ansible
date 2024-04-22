@@ -8,6 +8,7 @@ OUTPUT_FOLDER = '/beegfs/data/output/'
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
+app.config['LOG_FOLDER'] = 'static/'
 app.secret_key = b'ae40ba2c00ea0a02a05a304c76d04a40dd001125e0718a9fa46b4f2d5c7ce777'
 
 @app.route('/')
@@ -42,10 +43,29 @@ def display_output(output_file):
     return send_from_directory(
         app.config['OUTPUT_FOLDER'], output_file, as_attachment=True
     )
+
+def get_log_filenames():
+    log_files = []
+    log_folder = app.config['LOG_FOLDER']
+    for filename in os.listdir(log_folder):
+        if filename.endswith('.log'):
+            log_files.append(filename)
+    return log_files
+
+@app.route('/Log')
+def display_logs():
+    log_filenames = get_log_filenames()
+    logs = {}
+    for filename in log_filenames:
+        with open(f"{app.config['LOG_FOLDER']}/{filename}", 'r') as f:
+            log_content = f.read()
+            logs[filename] = log_content
+    return render_template('log.html', logs=logs)
+
 @app.route('/Log/<path:log_number>')
 def display_log(log_number):
     try:
-        filename = f'static/{log_number}.log'  # Construct filename based on log_number
+        filename = f'static/{log_number}.log'
         log_content = ''
         with open(filename, 'r') as f:
             log_content = f.read()

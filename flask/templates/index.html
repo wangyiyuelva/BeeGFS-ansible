@@ -1,60 +1,67 @@
 <html>
+
 <head>
-<style>
-.box {
-  display: flex;
-  justify-content: space-around;
-}
-</style>
+  <style>
+    .box {
+      display: flex;
+      justify-content: space-around;
+    }
+  </style>
 </head>
+
 <body>
-<p>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-<ul>
-  {% for message in messages %}
-  <li>{{ message }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
-</p>
-<form method="post" action="/" enctype="multipart/form-data">
-  <dl>
-    <p>
-      <input type="file" name="file" autocomplete="off" required>
-    </p>
-  </dl>
   <p>
-    <input type="submit" value="Upload">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
   </p>
-</form>
-<div class="box">
-<div>
-  <h1>Your uploaded file:</h1>
-{% if filename %}
-<div style="margin: 10px auto;">
-  <video autoplay="autoplay" controls="controls" preload="preload">
-    <source src="{{ url_for('display_video', filename=filename) }}" type="video/mp4">
-    </source>
-  </video>
-</div>
-{% endif %}
-</div>
+  <form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+      <p>
+        <input type="file" name="file" autocomplete="off" required>
+      </p>
+    </dl>
+    <p>
+      <input type="submit" value="Upload">
+    </p>
+  </form>
+  <div class="box">
+    <div>
+      <h1>Your uploaded file:</h1>
+      {% if filename %}
+      <div style="margin: 10px auto;">
+        <video autoplay="autoplay" controls="controls" preload="preload">
+          <source src="{{ url_for('display_video', filename=filename) }}" type="video/mp4">
+          </source>
+        </video>
+      </div>
+      {% endif %}
+    </div>
 
-<div>
-  <h1>Your video after data processing:</h1>
+    <div>
+      <h1>Your video after data processing:</h1>
 
-{% if output_file %}
-<div style="margin: 10px auto;">
-  <video autoplay="autoplay" controls="controls" preload="preload">
-    <source src="{{ url_for('display_output', output_file=output_file) }}"
-      type='video/mp4; codecs="avc1.4d002a, mp4a.40.2"'>
-    </source>
-  </video>
-</div>
-{% endif %}
-</div>
-</div>
+      {% if output_file %}
+      <div style="margin: 10px auto;">
+        <video autoplay="autoplay" controls="controls" preload="preload">
+          <source src="{{ url_for('display_output', output_file=output_file) }}"
+            type='video/mp4; codecs="avc1.4d002a, mp4a.40.2"'>
+          </source>
+        </video>
+      </div>
+      {% endif %}
+      <h3>If no video is playing, please check the data processing progress.</h3>
+      <h4>You can access the page: /Log to monitor progress.</h4>
+      <h4>If the progress is complete but the video still cannot be played, please download it via: /output/filename
+      </h4>
+    </div>
+  </div>
 </body>
+
 </html>

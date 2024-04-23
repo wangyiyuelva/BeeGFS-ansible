@@ -322,7 +322,7 @@ Now you can see the Prometheus UI on the browser: `http://{Host IP public addr}
         - For example, your uploaded video is abc.mp4, then download it via: `http://{public ip}/output/abc`
     - You can download the output plot via the page: `http://{public ip}/plot/filename`
         - For example, your uploaded video is abc.mp4, then download it via: `http://{public ip}/plot/abc`
-6. Test Examples (TODO: add example)
+6. Test Examples
     - You can test this by examples: `./flask/example/input`
     - example outputs are in `./flask/example/output`
 

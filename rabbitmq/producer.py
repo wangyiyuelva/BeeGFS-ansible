@@ -17,7 +17,7 @@ def list_mp4_files(directory):
   """
 
   mp4_files = []
-  target_size_bytes = 1 * 1024 * 1024
+  target_size_bytes = 2 * 1024 * 1024
 
   for filename in os.listdir(directory):
     if filename.endswith(".mp4"):

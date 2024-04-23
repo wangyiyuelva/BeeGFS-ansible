@@ -10,5 +10,3 @@
         cd /beegfs/prometheus
         mv prometheus-2.45.4.linux-amd64 prometheus-2.45.4
         mv node_exporter-1.7.0.linux-amd64 node_exporter-1.7.0
-        cd prometheus-2.45.4/
-        ./prometheus --web.enable-admin-api --config.file=prometheus.yml

@@ -20,25 +20,25 @@ def receive():
     def callback(ch, method, properties, body):
         print(f" [x] Received filename {body}")
         input = body.decode()
+        source_file = input
+        filename = source_file.split("/")[-1]
+        dst_file = "/beegfs/data/input_done/" + filename
 
         # Add logging info
         with open(fname, 'a+') as f:
             # get current date and time
             current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-            f.write(repr(current_datetime) + ": " + repr(input) + ' start running wildlife model...\n')
+            f.write(repr(current_datetime) + ": " + repr(filename) + ' start running wildlife model...\n')
         print(f" [x] Processing {input}")
 
         wild_result = wilelife_dlc.run_wildlife(input)
         with open(fname, 'a+') as f:
             # get current date and time
             current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-            f.write(repr(current_datetime) + ": " + repr(input) + ' completed wildlife model, starting deeplabcut...\n')
+            f.write(repr(current_datetime) + ": " + repr(filename) + ' completed wildlife model, starting deeplabcut...\n')
 
         wilelife_dlc.run_deeplabcut(wild_result)
 
-        source_file = input
-        filename = source_file.split("/")[-1]
-        dst_file = "/beegfs/data/input_done/" + filename
         try:
             shutil.move(source_file, dst_file)
             print(f"Successfully moved {source_file} to {dst_file}")
@@ -47,7 +47,7 @@ def receive():
 
         with open(fname, 'a') as f:
             current_datetime = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
-            f.write(repr(current_datetime) + ": " + repr(input) + ' is Done.\n')
+            f.write(repr(current_datetime) + ": " + repr(filename) + ' is Done.\n')
 
         ch.basic_ack(delivery_tag = method.delivery_tag)
         print(f" [x] Complete {input}")
@@ -69,3 +69,4 @@ if __name__ == '__main__':
             sys.exit(0)
         except SystemExit:
             os._exit(0)
+

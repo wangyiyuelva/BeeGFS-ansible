@@ -48,7 +48,7 @@ def display_output(output_file):
 
 @app.route("/plot/<path:plot>")
 def display_plot(plot):
-    plot_name = f'plot-poses/{plot}wild/plot.png'
+    plot_name = f'plot-poses/{plot}wild/trajectory.png'
     return send_from_directory(
         app.config['OUTPUT_FOLDER'], plot_name, as_attachment=True
     )

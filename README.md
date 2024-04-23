@@ -129,11 +129,11 @@ The pipeline require these dependencies
     - `install_tool.yml`: Install all yum packages and virtualenv
 - Run `./ansible/packages_for_pipeline.yml`
     - `packages_for_pipeline.yml`: Install PytorchWildlife and deeplabcut in virtualenv
-- Install this repository into shared filesystem
+- Install this repository into shared filesystem, name it pipeline.
     
     ```bash
     cd /beegfs
-    git clone ... pipeline
+    git clone https://github.com/wangyiyuelva/Distributed-data-analysis-system.git pipeline
     ```
     
 

@@ -57,13 +57,19 @@
         </video>
       </div>
       {% endif %}
-      <h3>If no video is playing, please check the data processing progress.</h3>
+      {% if plot %}
+      <div style="margin: 10px auto;">
+        <img src="{{ url_for('display_plot', plot=plot) }}" alt="Plot">
+      </div>
+      {% endif %}
+      <h3>If no plot is displayed, please check the data processing progress.</h3>
       <h4>You can access the page: /Log to monitor progress.</h4>
-      <h4>If the progress is complete but the video still cannot be played, please download it via: /output/filename
+      <h4>If the progress is complete, please download the output video via: /output/filename
       </h4>
       <h4>For example, your uploaded video is abc.mp4, then download it via: /output/abc </h4>
     </div>
   </div>
+
 </body>
 
 </html>

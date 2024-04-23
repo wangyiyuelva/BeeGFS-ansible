@@ -30,7 +30,8 @@ def upload_video():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # print('upload_video filename: ' + filename)
         flash('Video successfully uploaded and displayed below')
-        return render_template('index.html', filename=filename, output_file=filename)
+        outputfilename = filename[:-4]
+        return render_template('index.html', filename=filename, output_file=outputfilename, plot=outputfilename)
 
 @app.route("/download/<path:filename>")
 def display_video(filename):
@@ -43,6 +44,13 @@ def display_output(output_file):
     filename = f'{output_file}wildDLC_snapshot-700000_labeled.mp4'
     return send_from_directory(
         app.config['OUTPUT_FOLDER'], filename, as_attachment=True
+    )
+
+@app.route("/plot/<path:plot>")
+def display_plot(plot):
+    plot_name = f'plot-poses/{plot}wild/plot.png'
+    return send_from_directory(
+        app.config['OUTPUT_FOLDER'], plot_name, as_attachment=True
     )
 
 def get_log_filenames():
@@ -63,14 +71,15 @@ def display_logs():
             logs[filename] = log_content
     return render_template('log.html', logs=logs)
 
-@app.route('/Log/<path:log_number>')
-def display_log(log_number):
-    try:
-        filename = f'static/{log_number}.log'
-        log_content = ''
-        with open(filename, 'r') as f:
-            log_content = f.read()
-        return render_template('log.html', log_content=log_content)
-    except FileNotFoundError:
-        return "Logfile not found!", 404
+# @app.route('/Log/<path:log_number>')
+# def display_log(log_number):
+#     try:
+#         filename = f'static/{log_number}.log'
+#         log_content = ''
+#         with open(filename, 'r') as f:
+#             log_content = f.read()
+#         return render_template('log.html', log_content=log_content)
+#     except FileNotFoundError:
+#         return "Logfile not found!", 404
+
 

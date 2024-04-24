@@ -6,7 +6,7 @@ This is a distributed data analysis service across cloud machines. The nodes in 
 
 ## System Architecture
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/758ed74c-9864-49fb-a6b8-669c08225a5d/fb82562a-0f34-46a6-91fa-5792c0517381/Untitled.png)
+![System Architecture](system.png)
 
 ## Requirement
 

@@ -1,5 +1,6 @@
 import pika, sys, os
 
+# This is sample consumer
 def receive():
     credentials = pika.PlainCredentials('admin', 'abc123')
     connection = pika.BlockingConnection(pika.ConnectionParameters('10.0.0.108', '5673', '/', credentials=credentials))

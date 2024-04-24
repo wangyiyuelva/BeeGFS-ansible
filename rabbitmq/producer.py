@@ -34,16 +34,18 @@ directory = "/beegfs/data/input/" # input directory
 mp4_data = list_mp4_files(directory)
 
 if mp4_data:
-  print(mp4_data)
+  print("start publishing...")
 else:
   print("No mp4 files found in the specified directory.")
 
-# rabbitMQ producer
+# RabbitMQ producer setup
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost', '5673', heartbeat=1200))
 channel = connection.channel()
 
+# Declare the queue to send messages to
 channel.queue_declare(queue='input_file_que')
     
+# Loop the list and publish each file as a message to the queue
 for target_mp4 in mp4_data:
   channel.basic_publish(exchange='',
                         routing_key='input_file_que',
